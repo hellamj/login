@@ -30,7 +30,6 @@ class ProfileActivity : AppCompatActivity() {
 
         initGoogle()
         initViews()
-
     }
 
     private fun initViews() {
@@ -47,7 +46,6 @@ class ProfileActivity : AppCompatActivity() {
             userActual = user.uid
         }
 
-
         guardar?.setOnClickListener {
             // var id = userActual
             if (userActual != null) {
@@ -55,8 +53,6 @@ class ProfileActivity : AppCompatActivity() {
             }
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
-
-
         }
     }
 
@@ -120,7 +116,6 @@ class ProfileActivity : AppCompatActivity() {
             newprof = "Dato no facilitado"
         }
 
-
         /* val city = hashMapOf(
 
               newname to name?.text.toString(),
@@ -141,7 +136,5 @@ class ProfileActivity : AppCompatActivity() {
             .set(city)
             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
-
-
     }
 }
