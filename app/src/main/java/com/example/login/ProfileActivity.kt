@@ -22,7 +22,7 @@ class ProfileActivity : AppCompatActivity() {
     private var name: EditText? = null
     var userActual: String? = null
     private lateinit var googleSignInClient: GoogleSignInClient
-    val TAG = "ProfileActivity"
+    val TAG = "ProfActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,7 +78,7 @@ class ProfileActivity : AppCompatActivity() {
 
                     Log.i(TAG, "${result.id}-> ${result.data}")
 
-                    val usuario = result.toObject(Usuario::class.java)
+                    //val usuario = result.toObject(Usuario::class.java)
 
                 }
                 .addOnFailureListener { exception ->
