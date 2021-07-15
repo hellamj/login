@@ -1,7 +1,6 @@
 package com.example.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -10,12 +9,11 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.isVisible
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -76,7 +74,7 @@ class HomeActivity : AppCompatActivity() {
 
         var user = Firebase.auth.currentUser
 
-        user?.let { user->
+        user?.let { user ->
             if (user.displayName?.isEmpty() == true || user.displayName == null) {
                 tvUser?.text = "Estás dentro ${user.email}"
             } else {
@@ -112,7 +110,7 @@ class HomeActivity : AppCompatActivity() {
                 .get()
                 .addOnSuccessListener { result ->
 
-                        Log.i(TAG, "${result.id}-> ${result.data}")
+                    Log.i(TAG, "${result.id}-> ${result.data}")
 
                     val usuario = result.toObject(Usuario::class.java)
                     rellenarDatosUsuario(usuario)
