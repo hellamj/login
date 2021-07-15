@@ -1,12 +1,12 @@
 package com.example.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -28,10 +28,8 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        setGoogle()
+        initGoogle()
         initViews()
-
-
 
     }
 
@@ -42,29 +40,27 @@ class ProfileActivity : AppCompatActivity() {
         prof = findViewById<TextView>(R.id.etprof)
         guardar = findViewById<Button>(R.id.btguardar)
 
-        var user = Firebase.auth.currentUser
+        val user = Firebase.auth.currentUser
         leerDatosUser()
 
-        if(user != null){
+        if (user != null) {
             userActual = user.uid
         }
 
 
         guardar?.setOnClickListener {
-          // var id = userActual
+            // var id = userActual
             if (userActual != null) {
                 reescribirUsuario(userActual!!)
             }
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
 
 
         }
-
-
     }
-    private fun setGoogle() {
+
+    private fun initGoogle() {
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -73,8 +69,9 @@ class ProfileActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
     }
+
     private fun leerDatosUser() {
-        var user = Firebase.auth.currentUser
+        val user = Firebase.auth.currentUser
         val db = Firebase.firestore
         Log.i(TAG, user?.uid.toString())
 
@@ -94,42 +91,43 @@ class ProfileActivity : AppCompatActivity() {
                 }
         }
     }
+
     private fun reescribirUsuario(usuarioId: String) {
         val newname: String
-        if (!name?.text.isNullOrEmpty()){
+        if (!name?.text.isNullOrEmpty()) {
             newname = name?.text.toString()
-        }else{
+        } else {
             newname = "Dato no facilitado"
         }
 
         val newsurname: String
-        if (!surname?.text.isNullOrEmpty()){
+        if (!surname?.text.isNullOrEmpty()) {
             newsurname = surname?.text.toString()
-        }else{
+        } else {
             newsurname = ""
         }
         val newage: Int?
-        if (!age?.text.isNullOrEmpty()){
+        if (!age?.text.isNullOrEmpty()) {
             newage = age?.text.toString().toIntOrNull()
-        }else{
+        } else {
             newage = 0
         }
 
         val newprof: String
-        if (!prof?.text.isNullOrEmpty()){
+        if (!prof?.text.isNullOrEmpty()) {
             newprof = prof?.text.toString()
-        }else{
+        } else {
             newprof = "Dato no facilitado"
         }
 
 
-      /* val city = hashMapOf(
+        /* val city = hashMapOf(
 
-            newname to name?.text.toString(),
-            newsurname to surname?.text.toString() ,
-            newage to age?.text.toString().toInt(),
-            newprof to prof?.text.toString()
-        )*/
+              newname to name?.text.toString(),
+              newsurname to surname?.text.toString() ,
+              newage to age?.text.toString().toInt(),
+              newprof to prof?.text.toString()
+          )*/
 
         val city: Usuario = Usuario()
         city.nombre = newname
@@ -138,15 +136,11 @@ class ProfileActivity : AppCompatActivity() {
         city.profesion = newprof
 
 
-
-
         val db = Firebase.firestore
         db.collection("users").document("$usuarioId")
             .set(city)
             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
-
-
 
 
     }
