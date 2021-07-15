@@ -116,13 +116,7 @@ class ProfileActivity : AppCompatActivity() {
             newprof = "Dato no facilitado"
         }
 
-        /* val city = hashMapOf(
 
-              newname to name?.text.toString(),
-              newsurname to surname?.text.toString() ,
-              newage to age?.text.toString().toInt(),
-              newprof to prof?.text.toString()
-          )*/
 
         val city: Usuario = Usuario()
         city.nombre = newname
